@@ -7,8 +7,8 @@
 
 | Role | Name |
 |------|------|
-| Proposer (Client) | [Your Name] |
-| Developer | TBD |
+| Proposer (Client) | Youqian Cui |
+| Developer | Fan Zhang |
 
 ---
 
