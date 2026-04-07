@@ -7,7 +7,7 @@
 
 | Role | Name |
 |------|------|
-| Proposer (Client) | Youqian Cui |
+| Client | Youqian Cui |
 | Developer | Fan Zhang |
 
 ---
