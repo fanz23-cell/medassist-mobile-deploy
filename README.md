@@ -41,6 +41,17 @@ A prep workflow where users upload their resume, JD, and real interview experien
 
 ---
 
+## Timeline
+
+| Date | Milestone | Required Progress |
+|------|-----------|-------------------|
+| Apr 20 | Check-in 1 | `ARCHITECTURE.md` merged; project scaffolding set up; Supabase schema initialized |
+| May 4 | Check-in 2 | Resume/JD upload working; per-company question bank generating correctly |
+| May 18 | Check-in 3 | Mock interview flow complete with scoring; answer cards saving correctly |
+| Jun 1 | Final Delivery | All user stories passing acceptance criteria; app deployable and demoed |
+
+---
+
 ## Development Progress
 
 | PR | Feature | Status |
