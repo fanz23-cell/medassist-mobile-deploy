@@ -8,7 +8,7 @@
 
 | | |
 |---|---|
-| Proposer | [Your Name] |
+| Proposer | Youqian Cui |
 | Developer | Fan Zhang |
 | Development Fee | 25 GIX Bucks |
 | Start Date | April 6, 2025 |
