@@ -1,7 +1,6 @@
 # ResumeProbe
-> Interview prep tool for resume deep-dive questions
 
----
+Interview prep tool for resume deep-dive questions.
 
 ## Project Roles
 
@@ -10,59 +9,76 @@
 | Client | Youqian Cui |
 | Developer | Fan Zhang |
 
----
-
 ## Problem
 
-When interviewers dig into a candidate's resume — "walk me through this project," "what was your specific role," "what would you do differently" — most candidates stumble, even when they lived through the experience, because they've never been forced to articulate it in a structured way beforehand. On top of that, real interview experiences shared online are scattered and unstructured — candidates read them once and forget them, with no way to turn them into targeted practice. The result: qualified people lose offers not because of what they did or what they knew, but because they couldn't explain themselves clearly under company-specific pressure.
+Candidates often struggle to explain their own experience clearly under interview pressure, especially when interviewers ask resume deep-dive questions or company-specific follow-ups. ResumeProbe turns resume content, job descriptions, and real interview notes into a structured prep workflow.
 
----
+## Current Status
 
-## What It Does
+This repository now includes the Check-in 1 scaffold:
 
-A prep workflow where users upload their resume, JD, and real interview experiences per target company — each company gets its own question bank, and AI extends it by generating follow-up questions grounded in all three inputs, then runs a multi-round mock interview that probes the user's actual experiences without giving away answers, and polishes the final answers into memorizable cards.
+- Next.js App Router project structure
+- Setup page at `/session/new`
+- Practice page at `/session/[id]/practice`
+- Answer cards page at `/session/[id]/cards`
+- Mock API routes for setup, practice, and cards
+- Shared types and demo data
+- Supabase schema at `supabase/schema.sql`
 
----
+## Tech Stack
 
-## Development Contract
+- Next.js
+- React
+- TypeScript
+- Supabase
 
-- **Development Fee:** 25 GIX Bucks
-- **Stack:** Next.js + Supabase (see `ARCHITECTURE.md`)
-- **Contract terms:** Defined in `SPEC.md`
+## Getting Started
 
----
+1. Install Node.js 20+.
+2. Install dependencies:
 
-## Key Documents
+```bash
+npm install
+```
 
-| Document | Description |
-|----------|-------------|
-| [`SPEC.md`](./SPEC.md) | User stories and acceptance criteria |
-| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Data model, tech stack, agentic engineering plan |
+3. Copy environment variables:
 
----
+```bash
+cp .env.example .env.local
+```
 
-## Timeline
+4. Fill in your Supabase and Anthropic keys in `.env.local`.
+5. Run the dev server:
+
+```bash
+npm run dev
+```
+
+6. Open `http://localhost:3000`.
+
+## Milestones
 
 | Date | Milestone | Required Progress |
 |------|-----------|-------------------|
-| Apr 20 | Check-in 1 | `ARCHITECTURE.md` ; project scaffolding set up |
-| May 4 | Check-in 2 | Resume/JD upload working; per-company question bank generating correctly |
-| May 18 | Check-in 3 | Mock interview flow complete with scoring; answer cards saving correctly |
-| Jun 1 | Final Delivery | All user stories passing acceptance criteria; app deployable and demoed |
+| Apr 20 | Check-in 1 | `ARCHITECTURE.md` and project scaffolding set up |
+| May 4 | Check-in 2 | Resume/JD upload working and per-company question bank generating correctly |
+| May 18 | Check-in 3 | Mock interview flow complete with scoring and answer cards saving correctly |
+| Jun 1 | Final Delivery | All user stories passing acceptance criteria and app deployable |
 
----
+## Suggested Next PRs
 
-## Development Progress
+1. Wire `/api/session/setup` to real PDF parsing and Supabase inserts.
+2. Persist question banks and session retrieval by `id`.
+3. Connect the practice route to the Claude mock interviewer prompt.
+4. Add answer-card persistence and refine action.
 
-| PR | Feature | Status |
-|----|---------|--------|
-| #1 | `ARCHITECTURE.md` | 🔄 In Review |
+## Submission Notes
 
----
+For this scaffold PR, use the repository PR template and reference the GitHub issue this work closes. In the PR testing steps, include:
 
-## Proposer Commitments
-
-- Review all PRs within 48 hours
-- Provide specific, actionable feedback on every submission
-- Respond to developer questions within 48 hours
-- Conduct acceptance testing at each gate before merging
+1. `npm install`
+2. `npm run dev`
+3. Open `/`
+4. Open `/session/new`
+5. Open `/session/demo/practice`
+6. Open `/session/demo/cards`
