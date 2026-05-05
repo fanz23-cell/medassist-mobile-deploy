@@ -3,8 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ResumeProbe",
-  description: "Interview prep tool for resume deep-dive questions.",
+  title: "MedAssist",
+  description: "AR glasses and smart bracelet concept for elderly hospital visits.",
 };
 
 export default function RootLayout({
@@ -19,12 +19,12 @@ export default function RootLayout({
           <main className="page">
             <nav className="nav">
               <Link href="/" className="eyebrow">
-                ResumeProbe
+                MedAssist
               </Link>
               <div className="nav-links">
-                <Link href="/session/new">New Session</Link>
-                <Link href="/session/demo/practice">Practice</Link>
-                <Link href="/session/demo/cards">Cards</Link>
+                <a href="/#research">Research</a>
+                <a href="/#journey">Journey</a>
+                <a href="/#demo">Prototype</a>
               </div>
             </nav>
             {children}
