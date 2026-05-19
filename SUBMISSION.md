@@ -4,6 +4,8 @@
 
 MedAssist Mobile: an elderly-friendly phone web app that converts the original AR glasses and smart bracelet hospital guidance concept into a deployable mobile experience.
 
+Live production URL: https://lucky-pika-a040f3.netlify.app/
+
 ## What Changed
 
 - Rebuilt the app around the MedAssist mobile product instead of the previous scaffold.
@@ -46,11 +48,11 @@ Manual smoke test:
 
 ## Deployment Checklist
 
-- [ ] Create Supabase project.
-- [ ] Run `supabase/schema.sql`.
-- [ ] Import GitHub repo into Vercel.
-- [ ] Set production branch to `main`.
-- [ ] Add environment variables from `.env.example`.
-- [ ] Deploy public URL.
-- [ ] Add public URL to README.
-- [ ] Verify URL on a fresh browser or phone.
+- [x] Create Supabase project.
+- [x] Run `supabase/schema.sql`.
+- [x] Import public deployment repo into Netlify.
+- [x] Set production branch to `main`.
+- [x] Add environment variables from `.env.example`.
+- [x] Deploy public URL.
+- [x] Add public URL to README.
+- [x] Verify URL on a fresh browser.

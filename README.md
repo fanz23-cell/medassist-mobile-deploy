@@ -4,7 +4,7 @@ MedAssist Mobile is an elderly-friendly web companion for solo hospital visits. 
 
 ## Live URL
 
-Production URL: To be added after Vercel deployment.
+Production URL: https://lucky-pika-a040f3.netlify.app/
 
 ## Project Roles
 
@@ -28,7 +28,7 @@ Production URL: To be added after Vercel deployment.
 - Frontend: Next.js, React, TypeScript
 - Backend: Next.js API route at `/api/help-event`
 - Database: Supabase PostgreSQL, schema in `supabase/schema.sql`
-- Deployment target: Vercel with automatic production builds from `main`
+- Deployment target: Netlify with automatic production builds from the public deployment repository `main` branch
 
 ## Local Development
 
@@ -56,7 +56,7 @@ npm run dev
 
 ## Environment Variables
 
-Real secrets must stay in `.env.local` locally and in Vercel Environment Variables for production. Do not commit `.env.local`.
+Real secrets must stay in `.env.local` locally and in Netlify Environment Variables for production. Do not commit `.env.local`.
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=
@@ -67,18 +67,19 @@ SUPABASE_SERVICE_ROLE_KEY=
 ## Deployment Plan
 
 1. Create a Supabase project and run `supabase/schema.sql` in the SQL editor.
-2. Import this GitHub repository into Vercel.
-3. Set the production branch to `main`.
-4. Add the three environment variables from `.env.example` in Vercel Project Settings.
-5. Deploy. Vercel automatically creates a production build whenever new code is merged into `main`.
-6. Open the deployed URL in a fresh browser or phone and test the main flow:
+2. Push the app code to the public deployment repository used for hosting.
+3. Import the public deployment repository into Netlify.
+4. Set the production branch to `main`.
+5. Add the three environment variables from `.env.example` in Netlify Project Configuration.
+6. Deploy. Netlify automatically creates a production build whenever new code is merged into `main`.
+7. Open the deployed URL in a fresh browser or phone and test the main flow:
    - Open the homepage.
    - Type a visit purpose or upload a photo.
    - Confirm the app moves to the right hospital step.
    - Try the sample inputs for registration, triage, waiting, consultation, lab, and pharmacy.
    - Toggle rest mode and confirm the screen switches to the nearest rest stop.
    - Confirm the page works without localhost.
-7. Copy the final live URL into the Live URL section above and into your final handoff note.
+8. Copy the final live URL into the Live URL section above and into your final handoff note.
 
 ## Current MVP Limits
 
@@ -96,14 +97,16 @@ The app is designed around these live inputs:
 
 ## Developer-03 Checklist
 
-- [ ] Frontend deployed to stable public hosting.
-- [ ] Backend API route deployed with the same Vercel app.
-- [ ] Supabase database created from `supabase/schema.sql`.
+- [x] Frontend deployed to stable public hosting.
+- [x] Backend API route deployed with the same Netlify app.
+- [x] Supabase database created from `supabase/schema.sql`.
 - [x] Automatic production build workflow added for `main`.
 - [x] `.env.example` added without real secrets.
-- [ ] Production URL added to this README after deployment.
-- [ ] Public URL verified on a fresh device or browser.
+- [x] Production URL added to this README after deployment.
+- [x] Public URL verified on a fresh browser.
 
 ## Handoff Notes
 
-After deployment, share the live URL with the Proposer and verify the first screen, document scan flow, and rest mode on a fresh device or incognito browser.
+Live URL for Proposer Final Acceptance Testing: https://lucky-pika-a040f3.netlify.app/
+
+Verified on a fresh browser after deployment: homepage loads, the visit-purpose intake advances into the guided flow, and rest mode opens correctly.
