@@ -3,3 +3,7 @@ node_modules/
 .next/
 .env.local
 *.log
+*.out.log
+*.err.log
+.next-*.log
+tsconfig.tsbuildinfo

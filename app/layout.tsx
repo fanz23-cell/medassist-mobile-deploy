@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "MedAssist",
-  description: "AR glasses and smart bracelet concept for elderly hospital visits.",
+  description: "Elderly-friendly mobile hospital visit companion.",
 };
 
 export default function RootLayout({
@@ -22,9 +22,7 @@ export default function RootLayout({
                 MedAssist
               </Link>
               <div className="nav-links">
-                <a href="/#research">Research</a>
-                <a href="/#journey">Journey</a>
-                <a href="/#demo">Prototype</a>
+                <a href="/">Hospital Guide</a>
               </div>
             </nav>
             {children}

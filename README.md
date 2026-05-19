@@ -1,38 +1,36 @@
-# ResumeProbe
+# MedAssist Mobile
 
-Interview prep tool for resume deep-dive questions.
+MedAssist Mobile is an elderly-friendly web companion for solo hospital visits. It translates the original AR glasses and smart bracelet concept into a low-operation phone workflow: the patient enters or speaks why they came to the hospital, uploads or shows a document/sign, and receives the next safe action.
+
+## Live URL
+
+Production URL: To be added after Vercel deployment.
 
 ## Project Roles
 
 | Role | Name |
 |------|------|
-| Client | Youqian Cui |
+| Client / Proposer | Youqian Cui |
 | Developer | Fan Zhang |
 
-## Problem
+## What This Web App Does
 
-Candidates often struggle to explain their own experience clearly under interview pressure, especially when interviewers ask resume deep-dive questions or company-specific follow-ups. ResumeProbe turns resume content, job descriptions, and real interview notes into a structured prep workflow.
-
-## Current Status
-
-This repository now includes the Check-in 1 scaffold:
-
-- Next.js App Router project structure
-- Setup page at `/session/new`
-- Practice page at `/session/[id]/practice`
-- Answer cards page at `/session/[id]/cards`
-- Mock API routes for setup, practice, and cards
-- Shared types and demo data
-- Supabase schema at `supabase/schema.sql`
+- Guides an older patient through registration, triage, consultation, lab tests, return visits, and pharmacy pickup.
+- Keeps one current step on screen, with a fake hospital map, large buttons, and a simple rest mode.
+- Accepts typed text, uploaded photos, simulated voice input, documents, and hospital environment prompts.
+- Detects the next step from common hospital words and phrases such as registration, triage, waiting, doctor, lab, report, and pharmacy.
+- Keeps a running record of recent inputs so the family or helper can see what the patient just told the app.
+- Logs support events through a backend route so a future caregiver dashboard can track progress.
+- Uses Supabase schema files for production database setup.
 
 ## Tech Stack
 
-- Next.js
-- React
-- TypeScript
-- Supabase
+- Frontend: Next.js, React, TypeScript
+- Backend: Next.js API route at `/api/help-event`
+- Database: Supabase PostgreSQL, schema in `supabase/schema.sql`
+- Deployment target: Vercel with automatic production builds from `main`
 
-## Getting Started
+## Local Development
 
 1. Install Node.js 20+.
 2. Install dependencies:
@@ -47,8 +45,8 @@ npm install
 cp .env.example .env.local
 ```
 
-4. Fill in your Supabase and Anthropic keys in `.env.local`.
-5. Run the dev server:
+4. Fill in Supabase values in `.env.local` if database logging is needed. The prototype still runs in mock mode without them.
+5. Start the dev server:
 
 ```bash
 npm run dev
@@ -56,29 +54,56 @@ npm run dev
 
 6. Open `http://localhost:3000`.
 
-## Milestones
+## Environment Variables
 
-| Date | Milestone | Required Progress |
-|------|-----------|-------------------|
-| Apr 20 | Check-in 1 | `ARCHITECTURE.md` and project scaffolding set up |
-| May 4 | Check-in 2 | Resume/JD upload working and per-company question bank generating correctly |
-| May 18 | Check-in 3 | Mock interview flow complete with scoring and answer cards saving correctly |
-| Jun 1 | Final Delivery | All user stories passing acceptance criteria and app deployable |
+Real secrets must stay in `.env.local` locally and in Vercel Environment Variables for production. Do not commit `.env.local`.
 
-## Suggested Next PRs
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+```
 
-1. Wire `/api/session/setup` to real PDF parsing and Supabase inserts.
-2. Persist question banks and session retrieval by `id`.
-3. Connect the practice route to the Claude mock interviewer prompt.
-4. Add answer-card persistence and refine action.
+## Deployment Plan
 
-## Submission Notes
+1. Create a Supabase project and run `supabase/schema.sql` in the SQL editor.
+2. Import this GitHub repository into Vercel.
+3. Set the production branch to `main`.
+4. Add the three environment variables from `.env.example` in Vercel Project Settings.
+5. Deploy. Vercel automatically creates a production build whenever new code is merged into `main`.
+6. Open the deployed URL in a fresh browser or phone and test the main flow:
+   - Open the homepage.
+   - Type a visit purpose or upload a photo.
+   - Confirm the app moves to the right hospital step.
+   - Try the sample inputs for registration, triage, waiting, consultation, lab, and pharmacy.
+   - Toggle rest mode and confirm the screen switches to the nearest rest stop.
+   - Confirm the page works without localhost.
+7. Copy the final live URL into the Live URL section above and into your final handoff note.
 
-For this scaffold PR, use the repository PR template and reference the GitHub issue this work closes. In the PR testing steps, include:
+## Current MVP Limits
 
-1. `npm install`
-2. `npm run dev`
-3. Open `/`
-4. Open `/session/new`
-5. Open `/session/demo/practice`
-6. Open `/session/demo/cards`
+This version can preview uploaded images and infer next steps from typed or simulated recognized text. Full automatic OCR, real speech-to-text, indoor positioning, and hospital-specific maps require additional APIs and hospital data.
+
+## Inputs To Support
+
+The app is designed around these live inputs:
+
+- Text: the patient explains the reason for the visit.
+- Photo: registration slip, triage sheet, queue screen, order form, lab result, prescription, or pharmacy sign.
+- Voice: doctor or staff instructions, later connected to speech-to-text.
+- Paper: any hospital form or printed slip.
+- Environment: room signs, window signs, and waiting-area signs.
+
+## Developer-03 Checklist
+
+- [ ] Frontend deployed to stable public hosting.
+- [ ] Backend API route deployed with the same Vercel app.
+- [ ] Supabase database created from `supabase/schema.sql`.
+- [x] Automatic production build workflow added for `main`.
+- [x] `.env.example` added without real secrets.
+- [ ] Production URL added to this README after deployment.
+- [ ] Public URL verified on a fresh device or browser.
+
+## Handoff Notes
+
+After deployment, share the live URL with the Proposer and verify the first screen, document scan flow, and rest mode on a fresh device or incognito browser.

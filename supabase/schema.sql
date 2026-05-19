@@ -1,26 +1,38 @@
 create extension if not exists "pgcrypto";
 
-create table if not exists profiles (
+create table if not exists care_visits (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid,
-  resume_text text not null default '',
-  story_bank jsonb not null default '[]'::jsonb,
+  patient_name text not null,
+  hospital_name text not null,
+  department text not null,
+  appointment_time timestamptz,
+  caregiver_phone text,
+  status text not null default 'scheduled',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table if not exists sessions (
+create table if not exists visit_steps (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid,
-  company_name text not null,
-  role_title text not null default '',
-  jd_text text not null,
-  interview_notes text not null default '',
-  question_bank jsonb not null default '[]'::jsonb,
-  practice_rounds jsonb not null default '[]'::jsonb,
-  answer_cards jsonb not null default '[]'::jsonb,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  visit_id uuid not null references care_visits(id) on delete cascade,
+  step_order integer not null,
+  title text not null,
+  place text not null,
+  instruction text not null,
+  materials jsonb not null default '[]'::jsonb,
+  completed_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists help_events (
+  id uuid primary key default gen_random_uuid(),
+  visit_id text not null,
+  step_id text not null,
+  event_type text not null check (
+    event_type in ('step_completed', 'rest_requested', 'staff_help', 'family_update')
+  ),
+  note text not null default '',
+  created_at timestamptz not null default now()
 );
 
 create or replace function set_updated_at()
@@ -33,14 +45,12 @@ begin
 end;
 $$;
 
-drop trigger if exists profiles_set_updated_at on profiles;
-create trigger profiles_set_updated_at
-before update on profiles
+drop trigger if exists care_visits_set_updated_at on care_visits;
+create trigger care_visits_set_updated_at
+before update on care_visits
 for each row
 execute function set_updated_at();
 
-drop trigger if exists sessions_set_updated_at on sessions;
-create trigger sessions_set_updated_at
-before update on sessions
-for each row
-execute function set_updated_at();
+alter table care_visits enable row level security;
+alter table visit_steps enable row level security;
+alter table help_events enable row level security;

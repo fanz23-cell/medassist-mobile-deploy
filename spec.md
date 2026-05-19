@@ -1,117 +1,110 @@
-# SPEC.md — ResumeProbe
+# SPEC.md - MedAssist Mobile
 
-> Interview prep tool for resume deep-dive questions
+## Product Summary
 
----
+MedAssist Mobile is a phone-based hospital visit companion for elderly patients who may need to visit large hospitals alone. The project reinterprets the original AR glasses and smart bracelet concept as a deployable mobile web app.
 
-## Project Info
+## Core Problem
 
-| | |
-|---|---|
-| Proposer | Youqian Cui |
-| Developer | Fan Zhang |
-| Development Fee | 25 GIX Bucks |
-| Start Date | April 6, 2025 |
-| End Date | June 1, 2025 |
+Older patients often face several overlapping difficulties during hospital visits:
 
----
+- Hospital buildings are large and hard to navigate.
+- Treatment workflows contain many steps and dependencies.
+- Paper slips, QR codes, machines, and queue screens create information overload.
+- Patients may have reduced vision, hearing, memory, mobility, or confidence.
+- Existing volunteers and signage help, but do not provide continuous personal guidance.
 
-## Overview
+## Product Goal
 
-ResumeProbe is a structured interview prep workflow. Users upload their resume, a job description, and real interview experiences they've collected for a target company. The AI builds a per-company question bank, runs a multi-round mock interview that probes the user's actual experiences without revealing model answers, and polishes final answers into memorizable cards.
+Guide an older patient through the whole visit with one clear next action at a time. The patient should not need to frequently operate the phone. They only intervene when necessary: entering or speaking their purpose, placing a document in front of the camera, uploading a photo, confirming a safety-critical step, requesting rest/help, or letting the phone listen to the doctor.
 
----
+The product preserves the original MedAssist functions:
+
+- Destination scanning
+- Document/environment image upload
+- Typed or voice-transcribed fallback input
+- Route guidance
+- Deviation alerts
+- Material preparation
+- Task reminders
+- Machine-operation support
+- Doctor-speech-to-task conversion
+- Rest support
+- Staff and caregiver escalation
+- Visit summary for family
 
 ## User Stories
 
-### 1. Resume & JD Upload
-**As a** job seeker,  
-**I want to** upload my resume and paste a job description,  
-**So that** the AI can understand my background and what the role requires.
+### 1. Guided Visit Flow
 
-**Acceptance Criteria:**
-- User can upload a PDF resume
-- User can paste or upload a JD as text
-- System extracts and stores resume content and JD content
-- User sees a confirmation that inputs were processed successfully
+As an elderly patient, I want to see the current step and the next action, so that I do not need to remember the whole medical process at once.
 
----
+Acceptance criteria:
 
-### 2. Interview Experience Upload
-**As a** job seeker,  
-**I want to** paste real interview experiences I've found for a specific company,  
-**So that** my prep is informed by what that company has actually asked before.
+- The visit is broken into registration, triage, consultation, payment, test, and pharmacy steps.
+- Each step shows place, time, instruction, reason, and required materials.
+- The patient can mark a step complete and move forward.
+- The app can advance automatically when recognition is confident.
 
-**Acceptance Criteria:**
-- User can paste interview notes/experiences as free text
-- Each set of notes is scoped to a specific company session
-- System acknowledges the notes were saved
+### 2. Document and Destination Scanning
 
----
+As an elderly patient, I want to scan or identify my paper slip, QR code, or department sign, so that I know where to go next.
 
-### 3. Per-Company Question Bank
-**As a** job seeker,  
-**I want to** see a prioritized list of questions tailored to my target company,  
-**So that** I know what to focus on instead of preparing 100 generic questions.
+Acceptance criteria:
 
-**Acceptance Criteria:**
-- AI generates a question list combining JD signals, resume gaps, and uploaded interview notes
-- Questions are tagged by priority: 🔴 High / 🟡 Medium / 🟢 Low
-- Questions are categorized: behavioral / situational / resume deep-dive / follow-up
-- Each company session has its own isolated question bank
+- The prototype includes a scanning state.
+- The user can upload a document/environment image.
+- The user can type or paste recognized text when OCR is not available.
+- The inferred result updates the current step with destination and materials.
+- The interface explains which document/sign clues drove the decision.
+- The patient does not need to manually choose a mode for every scan.
 
----
+### 3. Doctor Speech to Tasks
 
-### 4. Mock Interview — AI Asks First
-**As a** job seeker,  
-**I want to** practice answering questions with an AI interviewer that probes my responses,  
-**So that** I build the habit of articulating my real experiences under pressure.
+As an elderly patient, I want the phone to listen when the doctor gives instructions, so that the instructions become simple tasks I can follow after leaving the consultation room.
 
-**Acceptance Criteria:**
-- AI presents one question at a time from the question bank
-- User submits a text answer before receiving any feedback
-- AI never reveals a model answer unprompted
-- AI generates at least one follow-up probe based on the user's answer
-- User can attempt the same question again after feedback
+Acceptance criteria:
 
----
+- The prototype includes a listening state.
+- Doctor instructions are represented as follow-up tasks.
+- The tasks connect to payment, lab, return consultation, and medication pickup.
 
-### 5. Answer Scoring
-**As a** job seeker,  
-**I want to** receive structured feedback on my answers,  
-**So that** I know specifically what to improve.
+### 4. Route Guidance and Deviation Alert
 
-**Acceptance Criteria:**
-- Each answer is scored across three dimensions: Structure (STAR), Relevance (JD alignment), Specificity (concrete details)
-- Scores are displayed clearly after each attempt
-- Feedback is specific and actionable, not generic
+As an elderly patient, I want phone-based wayfinding, so that I can reach the next department without relying only on signs.
 
----
+Acceptance criteria:
 
-### 6. Answer Cards
-**As a** job seeker,  
-**I want to** save polished versions of my best answers as cards,  
-**So that** I can review and memorize them before the interview.
+- The app shows a simplified route card.
+- The app can repeat directions.
+- The app can warn the patient if they may be going the wrong way.
 
-**Acceptance Criteria:**
-- User can request a "polish" on any practiced answer
-- System returns a short version (3–4 sentences) and a full version
-- Cards are saved per session and viewable at any time
-- Polished answer preserves the user's original voice and style
+### 5. Material Preparation
 
----
+As an elderly patient, I want to know which card, receipt, or record to hold before each counter or machine, so that I do not delay the line or miss a required item.
 
-## Out of Scope (v1)
+Acceptance criteria:
 
-- Voice / speech input
-- Browser extension or mobile app
-- Scraping interview experiences from the web automatically
-- Multiple user accounts / team features
+- Each step lists required materials.
+- The patient can see all materials before confirming arrival.
+- Missing-material support is available through staff help.
 
----
+### 6. Rest and Emergency Support
 
-## Non-Functional Requirements
+As an elderly patient with limited physical energy, I want to pause the route or request staff help, so that I can continue safely.
 
-- AI responses should stream in real-time during mock interview turns
-- Each company session's data must be isolated from other sessions
-- The app should work without login for MVP (single-user prototype is acceptable)
+Acceptance criteria:
+
+- The patient can tap a rest button.
+- The interface changes to a paused safety state.
+- Staff help and caregiver update events can be logged.
+
+## Data Model
+
+See `supabase/schema.sql`.
+
+Main tables:
+
+- `care_visits`: one scheduled hospital visit.
+- `visit_steps`: ordered tasks within a visit.
+- `help_events`: support, rest, staff help, and completion events.
