@@ -64,6 +64,25 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 ```
 
+## Quality and Security Checks
+
+Run these before submitting or deploying:
+
+```bash
+npm test
+npm run typecheck
+npm run build
+```
+
+Current automated test coverage includes 6 passing checks for visit-intent routing, Chinese keyword support, support-event validation, and mock-mode API response shaping.
+
+Security review completed for Developer-04:
+
+- `.env.example` contains placeholders only; real Supabase keys stay in `.env.local` and Netlify environment variables.
+- `.gitignore` excludes `.env.local`, build output, logs, `node_modules`, and TypeScript build info.
+- The server-only `SUPABASE_SERVICE_ROLE_KEY` is used only inside `/api/help-event`; browser code uses no service-role secret.
+- `/api/help-event` validates `visitId`, `stepId`, and the allowed support-event type before writing to Supabase.
+
 ## Deployment Plan
 
 1. Create a Supabase project and run `supabase/schema.sql` in the SQL editor.
@@ -95,7 +114,7 @@ The app is designed around these live inputs:
 - Paper: any hospital form or printed slip.
 - Environment: room signs, window signs, and waiting-area signs.
 
-## Developer-03 Checklist
+## Developer-04 Checklist
 
 - [x] Frontend deployed to stable public hosting.
 - [x] Backend API route deployed with the same Netlify app.

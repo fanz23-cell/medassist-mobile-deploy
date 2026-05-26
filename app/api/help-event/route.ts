@@ -1,27 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import type { HelpEventPayload, HelpEventType } from "@/lib/types";
-
-const eventTypes: HelpEventType[] = [
-  "step_completed",
-  "rest_requested",
-  "staff_help",
-  "family_update"
-];
-
-function isHelpEventPayload(value: unknown): value is HelpEventPayload {
-  if (!value || typeof value !== "object") return false;
-
-  const payload = value as Partial<HelpEventPayload>;
-  return (
-    typeof payload.visitId === "string" &&
-    payload.visitId.length > 0 &&
-    typeof payload.stepId === "string" &&
-    payload.stepId.length > 0 &&
-    typeof payload.eventType === "string" &&
-    eventTypes.includes(payload.eventType as HelpEventType)
-  );
-}
+import { buildHelpEventMockResponse, isHelpEventPayload } from "@/lib/help-event";
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as unknown;
@@ -37,11 +16,7 @@ export async function POST(request: Request) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
-    return NextResponse.json({
-      mode: "mock",
-      saved: true,
-      event: body
-    });
+    return NextResponse.json(buildHelpEventMockResponse(body));
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey);

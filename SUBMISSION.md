@@ -1,4 +1,4 @@
-# Developer-03 Submission Notes
+# Developer-04 Submission Notes
 
 ## Project
 
@@ -13,6 +13,9 @@ Live production URL: https://lucky-pika-a040f3.netlify.app/
 - Added backend route `/api/help-event` for completion, rest, staff help, and family update events.
 - Replaced the database schema with MedAssist visit, step, and help-event tables.
 - Updated `.env.example`, README, SPEC, and architecture documentation for deployment.
+- Fixed Chinese intent detection for visit intake so medicine pickup, lab, and follow-up phrases route correctly.
+- Added 6 automated tests with `node:test` covering intent detection, help-event payload validation, and mock-mode response shaping.
+- Added a security review summary for environment variables and API input validation.
 
 ## Original AR Functions Converted to Phone Functions
 
@@ -31,6 +34,7 @@ Live production URL: https://lucky-pika-a040f3.netlify.app/
 
 ```bash
 npm install
+npm test
 npm run typecheck
 npm run build
 npm run dev
@@ -56,3 +60,4 @@ Manual smoke test:
 - [x] Deploy public URL.
 - [x] Add public URL to README.
 - [x] Verify URL on a fresh browser.
+- [x] Add automated tests and security checks for Developer-04.

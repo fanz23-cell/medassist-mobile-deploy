@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { detectStart } from "@/lib/medassist";
 
 type Zone = "direct" | "outer" | "wrist" | "operation" | "inner";
 type Persona = "first" | "dependent" | "experienced" | "overwhelmed";
@@ -376,14 +377,6 @@ const flowSteps: FlowStep[] = [
 ];
 
 const stepIndexById = new Map(flowSteps.map((step, index) => [step.id, index]));
-
-function detectStart(input: string) {
-  const value = input.toLowerCase();
-  if (/(medicine|pharmacy|prescription|drug|药|取药)/.test(value)) return "scan-prescription";
-  if (/(report|result|follow|复诊|结果)/.test(value)) return "scan-lab-result";
-  if (/(lab|test|blood|检查|化验)/.test(value)) return "scan-doctor-order";
-  return "destination-from-paper";
-}
 
 export function MedAssistDemo() {
   const [stepId, setStepId] = useState("reason");
