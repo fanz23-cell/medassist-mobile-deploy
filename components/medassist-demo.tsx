@@ -24,6 +24,13 @@ type FlowStep = {
   nextId?: string;
 };
 
+type ScanResult = {
+  fileName: string;
+  summary: string;
+  clues: string[];
+  instruction: string;
+};
+
 const personas: Record<Persona, { label: string; detail: string }> = {
   first: { label: "First-time", detail: "Full guidance, confirmations, and clear operating prompts." },
   dependent: { label: "Dependent", detail: "Extra document checks and family-readable progress notes." },
@@ -378,11 +385,57 @@ const flowSteps: FlowStep[] = [
 
 const stepIndexById = new Map(flowSteps.map((step, index) => [step.id, index]));
 
+function simulateScan(step: FlowStep, fileName: string): ScanResult {
+  if (step.id === "reason" || step.id === "destination-from-paper" || step.id === "scan-registration-slip") {
+    return {
+      fileName,
+      summary: "Recognized: registration slip, Internal Medicine, 3F West Side, triage required.",
+      clues: ["Department: Internal Medicine", "Floor: 3F West", "Next counter: Triage desk"],
+      instruction: "Next: go to registration first, then continue to 3F West Side triage."
+    };
+  }
+
+  if (step.id === "scan-doctor-order") {
+    return {
+      fileName,
+      summary: "Recognized: blood test order and payment required before lab.",
+      clues: ["Test: blood test", "Payment: Kiosk B", "Destination: 2F Lab"],
+      instruction: "Next: pay at Kiosk B, then follow the map to the 2F Lab."
+    };
+  }
+
+  if (step.id === "scan-lab-result") {
+    return {
+      fileName,
+      summary: "Recognized: lab result is ready and should return to Room 318.",
+      clues: ["Status: result ready", "Doctor room: 318", "Bring: lab result and medical record"],
+      instruction: "Next: return to Room 318 for follow-up consultation."
+    };
+  }
+
+  if (step.id === "scan-prescription") {
+    return {
+      fileName,
+      summary: "Recognized: prescription for Pharmacy Counter 5.",
+      clues: ["Pickup: Counter 5", "Floor: 2F Pharmacy", "Pickup number: A128"],
+      instruction: "Next: go to 2F Pharmacy Counter 5 and prepare prescription plus receipt."
+    };
+  }
+
+  return {
+    fileName,
+    summary: step.recognized ?? "Recognized hospital document information.",
+    clues: [step.place, step.stage, "Document matched this step"],
+    instruction: step.main
+  };
+}
+
 export function MedAssistDemo() {
   const [stepId, setStepId] = useState("reason");
   const [persona, setPersona] = useState<Persona>("first");
   const [input, setInput] = useState("");
   const [captured, setCaptured] = useState("");
+  const [scanResult, setScanResult] = useState<ScanResult | null>(null);
   const [readyMaterials, setReadyMaterials] = useState<string[]>([]);
   const [isResting, setIsResting] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -413,6 +466,7 @@ export function MedAssistDemo() {
     setStepId(id);
     setReadyMaterials([]);
     setCaptured("");
+    setScanResult(null);
     setIsResting(false);
   }
 
@@ -440,8 +494,16 @@ export function MedAssistDemo() {
 
   function handleFile(file: File | undefined) {
     if (!file) return;
-    setCaptured(`Uploaded: ${file.name}`);
-    if (step.id === "reason") goTo("destination-from-paper");
+    const result = simulateScan(step, file.name);
+
+    if (step.id === "reason") {
+      setStepId("destination-from-paper");
+      setReadyMaterials([]);
+      setIsResting(false);
+    }
+
+    setScanResult(result);
+    setCaptured(result.summary);
   }
 
   function toggleMaterial(item: string) {
@@ -498,28 +560,58 @@ export function MedAssistDemo() {
         <main className={`screen task-screen zone-${step.zone}`}>
           <section className="glass-card current-task">
             <div className="zone-label">
-              <span>{zoneLabels[step.zone]}</span>
+              <span>{step.kind === "navigate" ? "Indoor Map" : zoneLabels[step.zone]}</span>
               <span>{step.place}</span>
             </div>
             <p className="screen-kicker">{step.kind}</p>
             <h1>{step.title}</h1>
             <p>{step.main}</p>
+            <button className="focus-action" onClick={goNext} type="button">
+              {step.primary}
+            </button>
           </section>
 
           {step.kind === "navigate" && (
             <section className="navigation-view">
-              <div className="route-arch">
-                <span>Go to</span>
+              <div className="map-searchbar">
+                <span>MedAssist Map</span>
                 <strong>{step.place}</strong>
               </div>
-              <div className="route-board">
-                {["Entrance", "Register", "Triage", "Waiting", "Room", "Pay", "Lab", "Pharmacy"].map((point, index) => (
-                  <span className={index <= Math.min(Math.floor(currentIndex / 3), 7) ? "active" : ""} key={point}>
-                    {point}
-                  </span>
-                ))}
+              <div className="floor-switcher" aria-label="Hospital floor selector">
+                <button type="button">1F</button>
+                <button className="active" type="button">2F</button>
+                <button type="button">3F</button>
               </div>
-              <p>{step.detail}</p>
+              <div className="live-map" aria-label={`Indoor turn-by-turn route to ${step.place}`}>
+                <span className="map-road main-road" />
+                <span className="map-road vertical-road" />
+                <span className="map-road upper-road" />
+                <span className="map-road right-road" />
+
+                <span className="building-block block-a">Registration</span>
+                <span className="building-block block-b">Elevator</span>
+                <span className="building-block block-c">Triage</span>
+                <span className="building-block block-d">Room 318</span>
+                <span className="building-block block-e">Lab</span>
+                <span className="building-block block-f">Pharmacy</span>
+
+                <span className="navigation-route route-main" />
+                <span className="navigation-route route-up" />
+                <span className="navigation-route route-turn" />
+                <span className="current-arrow">▲</span>
+                <span className="destination-marker">●</span>
+                <span className="distance-chip">120 m</span>
+              </div>
+              <div className="turn-card">
+                <div>
+                  <span>Next direction</span>
+                  <strong>Walk straight, then turn right at the elevator.</strong>
+                </div>
+                <button onClick={() => setCaptured("Route repeated: follow the blue line, then turn right at the elevator.")} type="button">
+                  Repeat
+                </button>
+              </div>
+              <p>{captured || step.detail}</p>
             </section>
           )}
 
@@ -536,8 +628,16 @@ export function MedAssistDemo() {
 
           {step.kind !== "navigate" && step.kind !== "prepare" && (
             <section className="action-view">
-              <p>{step.detail}</p>
-              {step.recognized && <strong>{captured || step.recognized}</strong>}
+              <p>{scanResult ? scanResult.instruction : step.detail}</p>
+              {(step.recognized || captured) && <strong>{captured || step.recognized}</strong>}
+              {scanResult && (
+                <div className="scan-result">
+                  <span>Scanned image: {scanResult.fileName}</span>
+                  {scanResult.clues.map((clue) => (
+                    <em key={clue}>{clue}</em>
+                  ))}
+                </div>
+              )}
               {(step.kind === "scan" || step.kind === "listen") && (
                 <button
                   className="spotlight-action"
