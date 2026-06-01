@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MedAssist Mobile 中文可视化流程图</title>
+    <style>
+      :root {
+        --green: #07966f;
+        --green-dark: #007a5b;
+        --green-soft: #eaf6f1;
+        --card: #f2f7f3;
+        --ink: #154238;
+        --muted: #4a746b;
+        --line: #0a9872;
+        --shadow: 0 10px 24px rgba(10, 63, 49, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #fbfdfb;
+        font-family:
+          "Microsoft YaHei",
+          "PingFang SC",
+          Arial,
+          sans-serif;
+      }
+
+      .board {
+        min-width: 1380px;
+        padding: 24px 32px 40px;
+      }
+
+      .title {
+        margin: 0 0 10px;
+        color: var(--green-dark);
+        font-size: 30px;
+        font-weight: 900;
+      }
+
+      .subtitle {
+        margin: 0 0 24px;
+        color: var(--green);
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .legend {
+        position: fixed;
+        top: 38px;
+        right: 34px;
+        z-index: 10;
+        display: grid;
+        gap: 16px;
+        width: 250px;
+        padding: 16px;
+        border: 1px solid rgba(7, 150, 111, 0.18);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow);
+      }
+
+      .legend-row {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        gap: 12px;
+        align-items: center;
+        color: var(--green-dark);
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .icon {
+        display: grid;
+        place-items: center;
+        width: 54px;
+        height: 54px;
+        border-radius: 8px;
+        color: white;
+        background: var(--green);
+        font-size: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .icon.light {
+        color: var(--green);
+        background: white;
+      }
+
+      .flow {
+        margin-bottom: 34px;
+        padding-right: 300px;
+      }
+
+      .flow h2 {
+        margin: 0;
+        color: var(--green);
+        font-size: 24px;
+        line-height: 1.2;
+      }
+
+      .flow > p {
+        margin: 4px 0 18px;
+        color: var(--green);
+        font-size: 18px;
+      }
+
+      .diagram {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .trigger-label {
+        color: var(--green-dark);
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .trigger {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        gap: 10px;
+        align-items: center;
+        width: 240px;
+        min-height: 70px;
+        padding: 12px;
+        border-radius: 8px;
+        color: white;
+        background: var(--green);
+        box-shadow: var(--shadow);
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .screen {
+        display: grid;
+        grid-template-columns: 1fr 38px;
+        gap: 10px;
+        align-items: center;
+        width: 184px;
+        min-height: 82px;
+        padding: 14px;
+        border-radius: 8px;
+        background: white;
+        box-shadow: var(--shadow);
+        color: var(--green-dark);
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .phone {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 48px;
+        border: 4px solid var(--green);
+        border-radius: 7px;
+      }
+
+      .phone::after {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--green);
+      }
+
+      .card {
+        width: 210px;
+        min-height: 64px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        background: var(--card);
+        color: var(--green-dark);
+        font-size: 14px;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .card.wide {
+        width: 300px;
+      }
+
+      .card.big {
+        width: 280px;
+        min-height: 104px;
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--green);
+        font-size: 15px;
+        font-weight: 950;
+      }
+
+      .button-card {
+        width: 170px;
+        min-height: 58px;
+        padding: 12px;
+        border-radius: 8px;
+        background: var(--green-soft);
+        color: var(--green-dark);
+        font-size: 14px;
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .mini {
+        width: 150px;
+        min-height: 46px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: var(--card);
+        color: var(--green-dark);
+        font-size: 13px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .arrow {
+        position: relative;
+        flex: 0 0 48px;
+        height: 2px;
+        background: var(--line);
+      }
+
+      .arrow::after {
+        content: "";
+        position: absolute;
+        right: -1px;
+        top: -5px;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 9px solid var(--line);
+      }
+
+      .arrow.short {
+        flex-basis: 30px;
+      }
+
+      .fork {
+        display: grid;
+        gap: 10px;
+      }
+
+      .fork-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .note {
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .dashed {
+        border: 2px dashed var(--green);
+        background: #f5fbf8;
+      }
+
+      .section-band {
+        padding: 18px 14px;
+        border-radius: 14px;
+        background: linear-gradient(90deg, rgba(234, 246, 241, 0.9), rgba(255, 255, 255, 0));
+      }
+
+      .map-card {
+        position: relative;
+        width: 330px;
+        height: 170px;
+        overflow: hidden;
+        border-radius: 12px;
+        background:
+          linear-gradient(90deg, rgba(7, 150, 111, 0.08) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(7, 150, 111, 0.08) 1px, transparent 1px),
+          #f8fbf9;
+        background-size: 28px 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .map-road {
+        position: absolute;
+        border-radius: 999px;
+        background: #cfe6dd;
+      }
+
+      .map-road.a {
+        left: 28px;
+        right: 28px;
+        bottom: 48px;
+        height: 16px;
+      }
+
+      .map-road.b {
+        left: 150px;
+        top: 30px;
+        bottom: 44px;
+        width: 16px;
+      }
+
+      .route {
+        position: absolute;
+        z-index: 2;
+        border-radius: 999px;
+        background: #1976ff;
+      }
+
+      .route.a {
+        left: 42px;
+        bottom: 54px;
+        width: 116px;
+        height: 8px;
+      }
+
+      .route.b {
+        left: 154px;
+        bottom: 54px;
+        width: 8px;
+        height: 74px;
+      }
+
+      .route.c {
+        left: 154px;
+        top: 40px;
+        width: 118px;
+        height: 8px;
+      }
+
+      .map-pin,
+      .map-you {
+        position: absolute;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 12px;
+        font-weight: 950;
+      }
+
+      .map-you {
+        left: 34px;
+        bottom: 38px;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: #1976ff;
+      }
+
+      .map-pin {
+        right: 36px;
+        top: 22px;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px 999px 999px 0;
+        background: #ee7077;
+        transform: rotate(-45deg);
+      }
+
+      .map-pin span {
+        transform: rotate(45deg);
+      }
+
+      .tiny-room {
+        position: absolute;
+        z-index: 1;
+        padding: 6px 8px;
+        border-radius: 6px;
+        background: white;
+        color: var(--green-dark);
+        font-size: 11px;
+        font-weight: 900;
+        box-shadow: 0 4px 12px rgba(10, 63, 49, 0.12);
+      }
+
+      .tiny-room.r1 {
+        left: 18px;
+        top: 24px;
+      }
+
+      .tiny-room.r2 {
+        left: 112px;
+        bottom: 16px;
+      }
+
+      .tiny-room.r3 {
+        right: 20px;
+        bottom: 20px;
+      }
+
+      @media print {
+        .board {
+          min-width: 1200px;
+        }
+
+        .legend {
+          position: absolute;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <h1 class="title">MedAssist Mobile 医院陪诊 App 可视化流程图</h1>
+      <p class="subtitle">目标：让老人每一刻只看到“现在要做什么”，并通过扫描、地图导航、材料提醒和休息求助完成就诊。</p>
+
+      <aside class="legend">
+        <div class="legend-row">
+          <div class="icon light">▯</div>
+          <span>App 主界面</span>
+        </div>
+        <div class="legend-row">
+          <div class="icon">📷</div>
+          <span>扫描 / 上传图片</span>
+        </div>
+        <div class="legend-row">
+          <div class="icon">🗺</div>
+          <span>医院室内地图导航</span>
+        </div>
+        <div class="legend-row">
+          <div class="icon">✓</div>
+          <span>材料 / 步骤确认</span>
+        </div>
+      </aside>
+
+      <section class="flow section-band">
+        <h2>Flow 1：开始就诊与识别目的</h2>
+        <p>用户输入就诊目的或上传纸张，系统判断第一步应该去哪里。</p>
+        <div class="diagram">
+          <div class="stack">
+            <div class="trigger-label">触发入口：</div>
+            <div class="trigger">
+              <span>▯</span>
+              <span>首页：今天为什么来医院？</span>
+            </div>
+          </div>
+          <div class="arrow"></div>
+          <div class="fork">
+            <div class="fork-row">
+              <div class="card"><strong>输入文字</strong>例如：化验、复诊、取药、挂号</div>
+              <div class="arrow short"></div>
+              <div class="button-card">点击<br />查找我的第一步</div>
+            </div>
+            <div class="fork-row">
+              <div class="card"><strong>上传纸张</strong>挂号单、短信截图、处方、检查结果</div>
+              <div class="arrow short"></div>
+              <div class="button-card">模拟扫描识别</div>
+            </div>
+          </div>
+          <div class="arrow"></div>
+          <div class="card big">
+            <strong>系统判断</strong>
+            取药 → 扫描处方<br />
+            复诊 / 结果 → 扫描检查结果<br />
+            化验 / 检查 → 扫描医嘱单<br />
+            其他 → 扫描已有纸张
+          </div>
+          <div class="arrow"></div>
+          <div class="screen">
+            <span>进入对应的下一步页面</span>
+            <span class="phone"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="flow section-band">
+        <h2>Flow 2：扫描纸张并生成下一步指示</h2>
+        <p>用户点击扫描，上传任意图片后，页面显示模拟识别结果、识别线索和下一步操作。</p>
+        <div class="diagram">
+          <div class="stack">
+            <div class="trigger-label">扫描触发：</div>
+            <div class="trigger">
+              <span>📷</span>
+              <span>扫描纸张 / 医嘱 / 处方 / 检查结果</span>
+            </div>
+          </div>
+          <div class="arrow"></div>
+          <div class="button-card">点击<br />立即扫描</div>
+          <div class="arrow short"></div>
+          <div class="button-card">选择图片</div>
+          <div class="arrow short"></div>
+          <div class="card big">
+            <strong>识别结果卡片</strong>
+            显示文件名<br />
+            显示识别摘要<br />
+            显示科室 / 楼层 / 材料 / 窗口线索
+          </div>
+          <div class="arrow"></div>
+          <div class="fork">
+            <div class="mini">确认目的地 → 挂号</div>
+            <div class="mini">规划化验路线 → 缴费</div>
+            <div class="mini">返回医生处 → 复诊</div>
+            <div class="mini">去药房 → 取药</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="flow section-band">
+        <h2>Flow 3：医院室内地图导航</h2>
+        <p>导航页面模拟百度地图式室内导航：顶部目的地、楼层切换、蓝色路线、当前位置、目的地和下一步方向。</p>
+        <div class="diagram">
+          <div class="stack">
+            <div class="trigger-label">导航触发：</div>
+            <div class="trigger">
+              <span>🗺</span>
+              <span>需要去挂号、分诊、诊室、缴费机、化验室或药房</span>
+            </div>
+          </div>
+          <div class="arrow"></div>
+          <div class="screen">
+            <span>地图页面</span>
+            <span class="phone"></span>
+          </div>
+          <div class="arrow short"></div>
+          <div class="map-card">
+            <span class="map-road a"></span>
+            <span class="map-road b"></span>
+            <span class="route a"></span>
+            <span class="route b"></span>
+            <span class="route c"></span>
+            <span class="map-you">你</span>
+            <span class="map-pin"><span>终</span></span>
+            <span class="tiny-room r1">化验室</span>
+            <span class="tiny-room r2">电梯</span>
+            <span class="tiny-room r3">药房</span>
+          </div>
+          <div class="arrow"></div>
+          <div class="card big">
+            <strong>底部方向卡</strong>
+            直走 120 米<br />
+            到电梯处右转<br />
+            点击 Repeat 可重复路线
+          </div>
+          <div class="arrow"></div>
+          <div class="button-card">到达后点击<br />我已到达</div>
+        </div>
+      </section>
+
+      <section class="flow section-band">
+        <h2>Flow 4：挂号到看医生的完整路径</h2>
+        <p>从确认目的地开始，依次完成挂号、准备材料、分诊、排队和进入诊室。</p>
+        <div class="diagram">
+          <div class="screen">
+            <span>导航到挂号窗口</span>
+            <span class="phone"></span>
+          </div>
+          <div class="arrow short"></div>
+          <div class="button-card">我已到达</div>
+          <div class="arrow short"></div>
+          <div class="card big">
+            <strong>准备挂号材料</strong>
+            点选身份证<br />
+            点选医保卡 / 就诊卡<br />
+            点选预约码
+          </div>
+          <div class="arrow"></div>
+          <div class="card">听工作人员讲话，保存窗口提示</div>
+          <div class="arrow short"></div>
+          <div class="card">扫描新挂号单，识别分诊位置</div>
+          <div class="arrow short"></div>
+          <div class="card">导航到分诊台，操作分诊机</div>
+          <div class="arrow short"></div>
+          <div class="card">记录排队号，等待叫号</div>
+          <div class="arrow short"></div>
+          <div class="screen">
+            <span>导航到诊室并记录医生讲话</span>
+            <span class="phone"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="flow section-band">
+        <h2>Flow 5：检查、复诊与取药路径</h2>
+        <p>医生开检查后，系统引导缴费、化验、回诊、扫描处方并最终到药房取药。</p>
+        <div class="diagram">
+          <div class="screen">
+            <span>扫描医生医嘱单</span>
+            <span class="phone"></span>
+          </div>
+          <div class="arrow short"></div>
+          <div class="card">识别到：先缴费，再去 2F 化验室</div>
+          <div class="arrow short"></div>
+          <div class="card">地图导航到自助缴费机 B</div>
+          <div class="arrow short"></div>
+          <div class="card">操作缴费，保存收据</div>
+          <div class="arrow short"></div>
+          <div class="card">地图导航到 2F 化验室</div>
+          <div class="arrow short"></div>
+          <div class="card">提交材料并完成采样</div>
+          <div class="arrow short"></div>
+          <div class="card">扫描检查结果，返回医生处</div>
+          <div class="arrow short"></div>
+          <div class="card">记录复诊建议，扫描处方</div>
+          <div class="arrow short"></div>
+          <div class="screen">
+            <span>导航到药房并取药</span>
+            <span class="phone"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="flow section-band">
+        <h2>Flow 6：全局辅助功能</h2>
+        <p>所有页面都保留休息、返回、快捷选项和后台事件记录，保证老人可以随时暂停或求助。</p>
+        <div class="diagram">
+          <div class="stack">
+            <div class="trigger">
+              <span>✓</span>
+              <span>任意页面</span>
+            </div>
+          </div>
+          <div class="arrow"></div>
+          <div class="fork">
+            <div class="fork-row">
+              <div class="button-card">点击 Rest</div>
+              <div class="arrow short"></div>
+              <div class="card">打开休息弹层，点击 Resume Visit 返回原页面</div>
+            </div>
+            <div class="fork-row">
+              <div class="button-card">点击 Back</div>
+              <div class="arrow short"></div>
+              <div class="card">返回上一个医院步骤</div>
+            </div>
+            <div class="fork-row">
+              <div class="button-card">点击主按钮</div>
+              <div class="arrow short"></div>
+              <div class="card">记录 step_completed，并进入下一步</div>
+            </div>
+            <div class="fork-row">
+              <div class="button-card">点击 family / staff</div>
+              <div class="arrow short"></div>
+              <div class="card">记录家属更新或工作人员求助事件</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
