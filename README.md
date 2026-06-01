@@ -114,6 +114,15 @@ The app is designed around these live inputs:
 - Paper: any hospital form or printed slip.
 - Environment: room signs, window signs, and waiting-area signs.
 
+## Developer-03 Checklist
+
+- [x] Frontend deployed to stable public hosting.
+- [x] Backend API routes deployed with the same Netlify app.
+- [x] Supabase database configured from `supabase/schema.sql`.
+- [x] Automatic production deployments enabled on `main`.
+- [x] Environment variables configured securely.
+- [x] Fresh browser verification completed.
+
 ## Developer-04 Checklist
 
 - [x] Frontend deployed to stable public hosting.
