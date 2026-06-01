@@ -213,7 +213,7 @@ button:disabled {
 
 .elder-screen {
   display: grid;
-  gap: 12px;
+  gap: 16px;
   padding: 16px;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -321,7 +321,7 @@ textarea {
 .rest-card,
 .summary-panel {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   padding: 15px 16px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -406,6 +406,21 @@ textarea {
   font-style: normal;
   font-size: 16px;
   line-height: 1.5;
+}
+
+.simple-panel {
+  gap: 12px;
+  padding: 18px 18px;
+}
+
+.simple-panel strong {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.simple-panel p {
+  font-size: 17px;
+  line-height: 1.58;
 }
 
 .elder-map-panel {
