@@ -76,6 +76,13 @@ export async function POST(request: Request) {
 
   const data = await response.json();
   if (!response.ok) {
+    const message = String(data.error?.message || data.error || "");
+    if (/limit|size|large|payload/i.test(message)) {
+      return NextResponse.json(
+        { error: "The image is too large. Please upload a smaller image or screenshot." },
+        { status: 413 }
+      );
+    }
     return NextResponse.json(
       { error: data.error?.message || "Image analysis failed. Please try again later." },
       { status: response.status }
