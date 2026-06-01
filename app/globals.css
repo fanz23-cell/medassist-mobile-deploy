@@ -115,7 +115,7 @@ button:disabled {
 
 .header-action {
   justify-content: center;
-  min-height: 64px;
+  min-height: 46px;
   font-size: 18px;
   font-weight: 950;
 }
@@ -123,7 +123,7 @@ button:disabled {
 .elder-progress {
   flex-direction: column;
   align-items: stretch;
-  padding: 12px 14px;
+  padding: 12px 14px 14px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
@@ -166,9 +166,11 @@ button:disabled {
 
 .goal-chip {
   display: grid;
-  gap: 5px;
-  margin-top: 6px;
-  padding: 11px 12px;
+  grid-template-columns: auto 1fr;
+  gap: 8px 18px;
+  align-items: start;
+  margin-top: 12px;
+  padding: 12px 14px;
   border-radius: 10px;
   background: #f4f8ff;
 }
@@ -179,11 +181,17 @@ button:disabled {
   font-weight: 950;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  padding-top: 3px;
 }
 
 .goal-chip strong {
+  display: block;
   font-size: 15px;
-  line-height: 1.3;
+  line-height: 1.7;
+}
+
+.goal-chip strong + strong {
+  margin-top: 8px;
 }
 
 .stage-bar {
