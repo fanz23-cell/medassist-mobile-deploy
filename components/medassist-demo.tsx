@@ -994,8 +994,8 @@ export function MedAssistDemo() {
                     {insight.doctorAdvice?.length ? (
                       <div className="scroll-list">
                         {insight.doctorAdvice.map((item) => (
-                            <p key={item}>- {item}</p>
-                          ))}
+                          <p key={item}>- {item}</p>
+                        ))}
                       </div>
                     ) : (
                       <p>No care advice found.</p>

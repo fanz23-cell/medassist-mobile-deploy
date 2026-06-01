@@ -1,13 +1,13 @@
 :root {
-  --ink: #153f36;
-  --muted: #5d7b72;
-  --bg: #f6faf7;
+  --ink: #16342e;
+  --muted: #5f726c;
+  --bg: #f4f7f5;
   --panel: #ffffff;
   --line: #e0ece5;
   --primary: #0a8f72;
   --primary-dark: #07745c;
   --blue: #1976ff;
-  --shadow: 0 8px 18px rgba(15, 63, 49, 0.08);
+  --shadow: 0 10px 24px rgba(15, 63, 49, 0.08);
 }
 
 * {
@@ -23,6 +23,9 @@ body {
   color: var(--ink);
   background: var(--bg);
   font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -47,12 +50,12 @@ button:disabled {
 .page {
   width: min(100%, 980px);
   margin: 0 auto;
-  padding: 10px;
+  padding: 12px;
 }
 
 .elder-app {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   min-height: calc(100vh - 24px);
 }
 
@@ -67,7 +70,7 @@ button:disabled {
 
 .elder-header {
   justify-content: stretch;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
@@ -76,16 +79,17 @@ button:disabled {
 
 .elder-header span {
   color: var(--primary);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .elder-header strong {
   display: block;
-  margin-top: 2px;
-  font-size: 18px;
-  line-height: 1.2;
+  margin-top: 3px;
+  font-size: 17px;
+  line-height: 1.18;
 }
 
 .elder-header button,
@@ -98,10 +102,11 @@ button:disabled {
   min-height: 48px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 10px 14px;
   background: white;
   color: var(--ink);
   font-weight: 800;
+  letter-spacing: 0;
 }
 
 .elder-header button {
@@ -110,16 +115,15 @@ button:disabled {
 
 .header-action {
   justify-content: center;
-  min-height: 66px;
-  font-size: 19px;
+  min-height: 64px;
+  font-size: 18px;
   font-weight: 950;
-  letter-spacing: 0;
 }
 
 .elder-progress {
   flex-direction: column;
   align-items: stretch;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
@@ -135,17 +139,19 @@ button:disabled {
 
 .elder-progress span {
   color: var(--primary);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 900;
+  letter-spacing: 0;
 }
 
 .elder-progress strong {
-  font-size: 17px;
+  font-size: 16px;
+  letter-spacing: 0;
 }
 
 .elder-progress i {
   display: block;
-  height: 8px;
+  height: 7px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--primary), var(--blue));
 }
@@ -160,23 +166,24 @@ button:disabled {
 
 .goal-chip {
   display: grid;
-  gap: 4px;
-  margin-top: 4px;
-  padding: 10px 12px;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 11px 12px;
   border-radius: 10px;
   background: #f4f8ff;
 }
 
 .goal-chip span {
   color: var(--blue);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 950;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .goal-chip strong {
-  font-size: 16px;
-  line-height: 1.25;
+  font-size: 15px;
+  line-height: 1.3;
 }
 
 .stage-bar {
@@ -206,8 +213,8 @@ button:disabled {
 
 .elder-screen {
   display: grid;
-  gap: 10px;
-  padding: 14px;
+  gap: 12px;
+  padding: 16px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--panel);
@@ -217,32 +224,35 @@ button:disabled {
 .elder-place {
   margin: 0;
   color: var(--primary);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
 }
 
 .elder-screen h1 {
   margin: 0;
-  font-size: 38px;
+  font-size: 36px;
   line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
 .elder-instruction {
   margin: 0;
   color: var(--muted);
-  font-size: 20px;
-  line-height: 1.5;
-  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.55;
+  max-width: 720px;
 }
 
 .elder-panel {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .elder-panel label {
   color: var(--primary-dark);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 0;
 }
@@ -252,21 +262,21 @@ input {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 16px;
+  padding: 14px 15px;
   background: white;
   color: var(--ink);
-  font-size: 20px;
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 textarea {
-  min-height: 104px;
+  min-height: 100px;
   resize: vertical;
 }
 
 .speech-input {
   min-height: 96px;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.4;
 }
 
@@ -282,18 +292,18 @@ textarea {
 .elder-samples {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 
 .elder-samples button {
-  min-height: 58px;
+  min-height: 56px;
   background: #f5fbf8;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.2;
 }
 
 .scan-panel {
-  gap: 10px;
+  gap: 12px;
 }
 
 .upload-button,
@@ -311,8 +321,8 @@ textarea {
 .rest-card,
 .summary-panel {
   display: grid;
-  gap: 7px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 15px 16px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #f9fcfa;
@@ -321,7 +331,7 @@ textarea {
 .scan-cards,
 .listen-grid {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .listen-grid {
@@ -329,7 +339,7 @@ textarea {
 }
 
 .scan-card.compact {
-  min-height: 116px;
+  min-height: 112px;
 }
 
 .scan-card.compact span {
@@ -340,43 +350,45 @@ textarea {
 }
 
 .scan-card.compact strong {
-  font-size: 24px;
-  line-height: 1.18;
+  font-size: 22px;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
 }
 
 .scan-card.compact p {
   margin: 0;
-  font-size: 18px;
-  line-height: 1.48;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .scan-card strong,
 .direction-card strong,
 .simple-panel strong,
 .summary-panel strong {
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 1.25;
 }
 
 .scan-card.big strong {
-  font-size: 26px;
-  line-height: 1.2;
+  font-size: 24px;
+  line-height: 1.18;
 }
 
 .scan-card.big p,
 .scan-card.big em {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 850;
 }
 
 .detail-group {
   display: grid;
-  gap: 6px;
-  padding-top: 6px;
+  gap: 5px;
+  padding-top: 4px;
 }
 
 .detail-group b {
   color: var(--primary-dark);
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .scan-card span {
@@ -392,29 +404,31 @@ textarea {
   margin: 0;
   color: var(--muted);
   font-style: normal;
-  font-size: 18px;
-  line-height: 1.48;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .elder-map-panel {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .map-top {
   display: grid;
-  gap: 4px;
+  gap: 5px;
 }
 
 .map-top span {
   color: var(--primary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .map-top strong {
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 1.2;
 }
 
 .floor-tabs button.active {
@@ -425,7 +439,7 @@ textarea {
 .simple-map {
   position: relative;
   overflow: hidden;
-  min-height: 260px;
+  min-height: 252px;
   border: 1px solid var(--line);
   border-radius: 12px;
   background:
@@ -494,15 +508,16 @@ textarea {
 
 .map-copy {
   display: grid;
-  gap: 4px;
-  margin-bottom: 8px;
+  gap: 5px;
+  margin-bottom: 6px;
 }
 
 .map-copy strong {
   display: block;
-  font-size: 26px;
-  line-height: 1.1;
+  font-size: 24px;
+  line-height: 1.15;
   font-weight: 950;
+  letter-spacing: -0.01em;
 }
 
 .route-start,
@@ -630,20 +645,20 @@ textarea {
   width: 100%;
   max-width: none;
   margin-top: 2px;
-  padding: 8px 10px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #f9fcfa;
 }
 
 .tiny-followup-strip strong {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.2;
 }
 
 .followup-tags {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 2px;
   width: 100%;
@@ -652,13 +667,14 @@ textarea {
 .question-pill {
   flex: 0 0 auto;
   min-height: 34px;
-  padding: 7px 12px;
+  padding: 7px 11px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: white;
   font-weight: 900;
   white-space: nowrap;
   line-height: 1;
+  font-size: 14px;
 }
 
 .question-pill.selected {
@@ -671,29 +687,29 @@ textarea {
 
 .scroll-list {
   display: grid;
-  gap: 8px;
-  max-height: 116px;
+  gap: 7px;
+  max-height: 112px;
   overflow: auto;
   padding-right: 4px;
 }
 
 .scroll-list p {
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.45;
 }
 
 .summary-block,
 .summary-footer {
   display: grid;
-  gap: 6px;
+  gap: 7px;
 }
 
 .summary-block p,
 .summary-footer p {
   margin: 0;
-  font-size: 18px;
-  line-height: 1.45;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .rest-modal-backdrop {
@@ -709,7 +725,7 @@ textarea {
 
 .rest-modal {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   width: min(100%, 1220px);
   padding: 16px;
   border-radius: 16px;
@@ -725,26 +741,27 @@ textarea {
 .rest-map-top {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   line-height: 1.2;
 }
 
 .rest-map-top strong {
-  font-size: 30px;
-  line-height: 1.1;
+  font-size: 26px;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
 }
 
 .rest-map-top span {
   color: var(--primary);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 900;
   line-height: 1.2;
 }
 
 .rest-map {
   position: relative;
-  min-height: 440px;
+  min-height: 420px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -808,7 +825,7 @@ textarea {
   border-radius: 999px;
   color: white;
   background: #1976ff;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 950;
 }
 
@@ -818,12 +835,12 @@ textarea {
   place-items: center;
   min-width: 112px;
   min-height: 64px;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-radius: 14px;
   background: white;
   box-shadow: var(--shadow);
   color: var(--ink);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 900;
   border: 1px solid var(--line);
 }
@@ -873,7 +890,7 @@ textarea {
   border-radius: 12px;
   color: white;
   background: linear-gradient(135deg, var(--primary), var(--blue));
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 950;
   letter-spacing: 0;
 }
@@ -917,7 +934,7 @@ textarea {
   }
 
   .elder-screen h1 {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .elder-screen {
