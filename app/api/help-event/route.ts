@@ -31,8 +31,8 @@ export async function POST(request: Request) {
     .select()
     .single();
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error || !data) {
+    return NextResponse.json(buildHelpEventMockResponse(body));
   }
 
   return NextResponse.json({ mode: "database", saved: true, event: data });
